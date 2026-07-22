@@ -19,11 +19,13 @@ words = text.lower().split()
 word_count = {}
 for word in words:
     word = word.strip(",.")
-    if word in word_count:
-        word_count[word] += 1
-    else:
-        word_count[word] = 1
+    # if word in word_count:
+    #     word_count[word] += 1
+    # else:
+    #     word_count[word] = 1
+    word_count.get(word, 0)
+    word_count[word] = word_count.get(word, 0) + 1
 
-sorted_word_count = sorted(word_count.items(), key=lambda X: X[1],reverse=True)
+sorted_word_count = sorted(word_count.items(), key=lambda x: x[1],reverse=True)
 for word, count in sorted_word_count[:10]:
     print(f"{word}: {count}")
