@@ -2,7 +2,7 @@ from pathlib import Path
 dry_run = True
 p = Path('week1/rename_test')
 items = list(p.iterdir())
-sorted_items = sorted(items, key=lambda x: x, reverse=False)
+sorted_items = sorted(items)
 for i, item in enumerate(sorted_items, start=1):
     new_stem = f"照片_{i:02}"
     new_path = item.with_stem(new_stem)
