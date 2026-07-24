@@ -9,30 +9,33 @@ while True:
     choice = input("请输入您的选择: ")
 
     if choice == '1':
-        name = input("请输入联系人姓名: ").strip()  # 只取第一个单词作为姓名，避免输入空格或多余字符
+        name = input("请输入联系人姓名: ").strip()  
         if name == "":
             print("联系人姓名不能为空，请重新输入。")
             continue
         if name in contacts:
             print(f"联系人 {name} 已存在，是否覆盖？(y/n): ")
             if input().lower() == 'y':
-                phone = input("请输入联系人电话: ")
-                if phone.strip() == "":
+                phone = input("请输入联系人电话: ").strip()
+                if phone == "":
                     print("联系人电话不能为空，请重新输入。")
                     continue
-                contacts[name] = phone.strip()
+                contacts[name] = phone
                 print(f"已更新联系人: {name} - {phone}")
             else:
                 print("取消更新。")
         else:
-            phone = input("请输入联系人电话: ")
-            if phone.strip() == "":
+            phone = input("请输入联系人电话: ").strip()
+            if phone == "":
                 print("联系人电话不能为空，请重新输入。")
                 continue
-            contacts[name] = phone.strip()
+            contacts[name] = phone
             print(f"已添加联系人: {name} - {phone}")
     elif choice == '2':
         name = input("请输入要删除的联系人姓名: ").strip()
+        if name == "":
+            print("联系人姓名不能为空，请重新输入。")
+            continue
         if name in contacts:
             del contacts[name]
             print(f"已删除联系人: {name}")
