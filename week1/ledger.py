@@ -1,10 +1,7 @@
 def is_blank(input_str):
-    if input_str == "":
-        return True
-    else:
-        return False
+    return input_str == ""
 
-def input_str(prompt):
+def input_string(prompt):
     input_str = input("请输入" + prompt + ": ").strip()
     while is_blank(input_str):
         input_str = input("输入不能为空，不能包含空格或其他符号，请重新输入: ").strip()
@@ -12,7 +9,7 @@ def input_str(prompt):
 
 def input_num(prompt):
     input_str = input("请输入" + prompt + ": ").strip()
-    while not input_str.isdigit() or is_blank(input_str):
+    while not input_str.isdigit():
         input_str = input("输入必须为整数且不能为空，不能包含空格或其他字符，请重新输入: ").strip()
     return int(input_str)
 records = []
@@ -24,9 +21,9 @@ while True:
     print("0. 退出")
     choice = input("请选择操作")
     if choice == "1":
-        category = input_str("分类")
+        category = input_string("分类")
         amount = input_num("金额")
-        notes = input_str("备注")
+        notes = input_string("备注")
         records.append({"分类": category, "金额": amount, "备注": notes})
     elif choice == "2":
         if not records:
@@ -56,5 +53,3 @@ while True:
         break
     else:
         print("无效的选择，请重新输入。")
-
-#支出记录之所以用list而不用dict是因为支出记录可能包含相同的分类和金额，而字典要求键是唯一的。如果使用字典来存储支出记录，可能会导致数据覆盖或丢失。
