@@ -19,7 +19,7 @@ while True:
     print("2. 按金额排序列出全部")
     print("3. 分类汇总")
     print("0. 退出")
-    choice = input("请选择操作")
+    choice = input("请选择操作:")
     if choice == "1":
         category = input_string("分类")
         amount = input_num("金额")
