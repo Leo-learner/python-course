@@ -8,9 +8,9 @@ def blank_resolver(input_str):
     return input_str
 def num_blank_resolver(input_str):
     while is_blank(input_str) or not input_str.isdigit():
-        input_str = input("输入不能为空，且必须为数字，请重新输入: ").strip()
-    return int(input_str)
-def show_all_contacts():
+        input_str = input("输入不能为空，不能有空格，请重新输入: ").strip()
+    return (input_str)
+def show_all_contacts(contacts):
     if contacts:
         print("所有联系人:")
         for name, phone in contacts.items():
@@ -21,7 +21,7 @@ def add_contact(contacts, name, phone):
     contacts[name] = phone
     print(f"已添加联系人: {name} - {phone}")
 def find_contact(contacts, name):
-    return contacts.get(name, None)
+    return contacts.get(name)
 
 while True:
     print("\n1. 添加联系人")
@@ -54,12 +54,12 @@ while True:
     elif choice == '3':
         name = blank_resolver(input("请输入要查找的联系人姓名: "))
         contact = find_contact(contacts, name)
-        if contact:
+        if contact is not None:
             print(f"联系人信息: {name} - {contact}")
         else:
             print(f"联系人 {name} 不存在")
     elif choice == '4':
-        show_all_contacts()
+        show_all_contacts(contacts)
     elif choice == '0':
         print("退出系统，感谢使用!")
         break
