@@ -6,10 +6,6 @@ def blank_resolver(input_str):
     while is_blank(input_str):
         input_str = input("输入不能为空，请重新输入: ").strip()
     return input_str
-def num_blank_resolver(input_str):
-    while is_blank(input_str) or not input_str.isdigit():
-        input_str = input("输入不能为空，不能有空格，请重新输入: ").strip()
-    return (input_str)
 def show_all_contacts(contacts):
     if contacts:
         print("所有联系人:")
@@ -36,13 +32,13 @@ while True:
         if name in contacts:
             print(f"联系人 {name} 已存在，是否覆盖？(y/n): ")
             if input().lower() == 'y':
-                phone = num_blank_resolver(input("请输入联系人电话: "))
+                phone = blank_resolver(input("请输入联系人电话: "))
                 contacts[name] = phone
                 print(f"已更新联系人: {name} - {phone}")
             else:
                 print("取消更新。")
         else:
-            phone = num_blank_resolver(input("请输入联系人电话: "))
+            phone = blank_resolver(input("请输入联系人电话: "))
             add_contact(contacts, name, phone)
     elif choice == '2':
         name = blank_resolver(input("请输入要删除的联系人姓名: "))
