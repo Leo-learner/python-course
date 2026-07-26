@@ -15,9 +15,9 @@
 text = "Python is simple. Python is powerful. Learning Python is fun and practical. In data science, Python is the first choice. When learning to code, simple solutions are often the best. Writing simple code is a skill that every Python developer loves."
 words = text.lower().split()
 word_count = {}
+words = [word.strip(",.") for word in words]
 for word in words:
-    word = word.strip(",.")
-    word_count[word] = word_count.get(word, 0) +1
+    word_count[word] = word_count.get(word, 0) + 1
 word_count_sorted = sorted(word_count.items(), key=lambda x: x[1], reverse = True)
 for word, count in word_count_sorted[:10]:
     print(f"{word}: {count}")
