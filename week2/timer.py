@@ -1,5 +1,7 @@
 import time
+import functools
 def timer(func):
+    @functools.wraps(func)
     def wrapper(*args, **kwargs):
         start = time.perf_counter()
         result = func(*args, **kwargs)
@@ -19,3 +21,5 @@ def slow():
 
 print(add(3, 4))
 print(slow())
+
+print(add.__name__)  # 输出 add
