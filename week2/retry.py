@@ -34,4 +34,3 @@ def flaky():
 def fine(a, b):
     return a + b
 
-flaky()

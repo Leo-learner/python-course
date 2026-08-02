@@ -1,6 +1,6 @@
 import time
 import functools
-def repeat(times=1):
+def repeat(times):
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -10,7 +10,7 @@ def repeat(times=1):
         return wrapper
     return decorator
 
-@repeat
+@repeat(times=0)
 def greet():
     print("hi")
 
