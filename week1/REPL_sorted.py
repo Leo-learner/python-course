@@ -24,10 +24,15 @@ class Dog:
 d1 = Dog("旺财", 3)
 d2 = Dog("小黑", 5)
 
-d1.name
-d2.name
-d1.bark()
-d2.bark()
-d1.birthday()
-d1.age
-d2.age
+# d1.name
+# d2.name
+# d1.bark()
+# d2.bark()
+# d1.birthday()
+# d1.age
+# d2.age
+print(type(Dog.birthday))
+print(type(d1.birthday))
+print(Dog.birthday(d1))
+print(d1.birthday.__self__ is d1)
+print(d1.birthday.__func__ is Dog.birthday)
