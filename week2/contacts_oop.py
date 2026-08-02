@@ -32,13 +32,6 @@ class ContactBook:
         return self.contacts.copy()
 
 customer = ContactBook()
-work = ContactBook()
-personal = ContactBook()
-work.add("张三", "138xxxx")
-contacts1 = personal.show_all()
-show_all_contacts(contacts1)
-contacts2 = work.show_all()
-show_all_contacts(contacts2)
 #=================================================
 while True:
     print("\n1. 添加联系人")
