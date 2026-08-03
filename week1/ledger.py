@@ -11,7 +11,7 @@ def input_num(prompt):
     input_str = input("请输入" + prompt + ": ").strip()
     while not input_str.isdigit():
         input_str = input("输入必须为整数且不能为空，不能包含空格或其他字符，请重新输入: ").strip()
-    return int(input_str)
+    return input_str
 records = []
 print("欢迎使用支出记录系统!\n")
 while True:
