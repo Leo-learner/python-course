@@ -1,0 +1,92 @@
+import sys
+class LedgerError(Exception):
+    pass
+class InvalidAmountError(LedgerError):
+    pass
+class InvalidStringError(LedgerError):
+    pass
+class UserCancelled(LedgerError):
+    pass
+
+def is_blank(input_str):
+    return input_str == ""
+def input_string(prompt):
+    input_str = input("请输入" + prompt + ": ").strip()
+    if is_blank(input_str):
+        raise InvalidStringError(f"输入不能为空，不能包含空格或其他符号。尝试输入“{input_str}”")
+    return input_str
+
+def input_num(prompt):
+    input_str = input("请输入" + prompt + ": ").strip()
+    if not input_str.isdigit():
+        raise InvalidAmountError(f"输入必须为整数且不能为空，不能包含空格或其他字符。尝试输入“{input_str}”")
+    elif int(input_str) <= 0:
+        raise InvalidAmountError(f"输入不能小于等于0。尝试输入“{input_str}”")
+    return int(input_str)
+
+def ask_untill_valid(func, *args):
+    while True:
+        try:
+            amount = func(*args)
+        except LedgerError as e:
+                print(e)
+                print("1. 重新输入")
+                print("2. 取消本次记账")
+                print("3. 退出程序")
+                choice = input("请选择操作")
+                if choice == "1":
+                    continue
+                elif choice == "2":
+                    raise UserCancelled
+                elif choice == "3":
+                    sys.exit()
+                else:
+                    print("输入无效，自动选择重新输入")
+                    continue
+        else:   
+            break
+    return amount
+records = []
+print("欢迎使用支出记录系统!\n")
+while True:
+    print("1. 添加支出")
+    print("2. 按金额排序列出全部")
+    print("3. 分类汇总")
+    print("0. 退出")
+    choice = input("请选择操作:")
+    if choice == "1":
+        try:    
+            category = ask_untill_valid(input_string, "分类")
+            amount = ask_untill_valid(input_num, "金额")
+            notes = ask_untill_valid(input_string, "备注")
+            records.append({"分类": category, "金额": amount, "备注": notes})
+        except UserCancelled:
+            print("已取消本次记账")
+    elif choice == "2":
+        if not records:
+            print("\n没有支出记录\n")
+            continue
+        for record in sorted(records, key=lambda r: r["金额"]):
+            print(f"分类: {record['分类']}, 金额: {record['金额']:.2f}, 备注: {record['备注']}")
+    elif choice == "3":
+        if not records:
+            print("\n没有支出记录\n")
+            continue
+        summary = {}
+        number = {}
+        for record in records:
+            category = record["分类"]
+            amount = record["金额"]
+            if category in summary:
+                summary[category] += amount
+                number[category] += 1
+            else:
+                summary[category] = amount
+                number[category] = 1
+        for category, total in summary.items():
+            print(f"{category}: {total:.2f}, 笔数: {number[category]}")
+    elif choice == "0":
+        print("退出系统，感谢使用!")
+        break
+    else:
+        print("无效的选择，请重新输入。")
