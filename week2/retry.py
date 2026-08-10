@@ -25,7 +25,7 @@ def always_fail():
 @retry(times=3, delay=0.5)
 def flaky():
     # 用随机数模拟：大概率失败、小概率成功
-    if random.random() < 0.2:
+    if random.random() < 0.4:
         print("成功！")
     else:
         raise ValueError("随机数测试失败")
@@ -33,4 +33,5 @@ def flaky():
 @retry(times=3, delay=0.5)
 def fine(a, b):
     return a + b
+
 
