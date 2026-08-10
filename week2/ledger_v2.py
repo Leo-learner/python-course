@@ -5,7 +5,7 @@ class InvalidAmountError(LedgerError):
     pass
 class InvalidStringError(LedgerError):
     pass
-class UserCancelled(LedgerError):
+class UserCancelled(Exception):
     pass
 
 def is_blank(input_str):
@@ -24,28 +24,25 @@ def input_num(prompt):
         raise InvalidAmountError(f"输入不能小于等于0。尝试输入“{input_str}”")
     return int(input_str)
 
-def ask_untill_valid(func, *args):
+def ask_until_valid(func, *args):
     while True:
         try:
-            amount = func(*args)
+            return func(*args)
         except LedgerError as e:
-                print(e)
-                print("1. 重新输入")
-                print("2. 取消本次记账")
-                print("3. 退出程序")
-                choice = input("请选择操作")
-                if choice == "1":
-                    continue
-                elif choice == "2":
-                    raise UserCancelled
-                elif choice == "3":
-                    sys.exit()
-                else:
-                    print("输入无效，自动选择重新输入")
-                    continue
-        else:   
-            break
-    return amount
+            print(e)
+            print("1. 重新输入")
+            print("2. 取消本次记账")
+            print("3. 退出程序")
+            choice = input("请选择操作")
+            if choice == "1":
+                continue
+            elif choice == "2":
+                raise UserCancelled("用户取消本次记账")
+            elif choice == "3":
+                sys.exit()
+            else:
+                print("输入无效，自动选择重新输入")
+                continue
 records = []
 print("欢迎使用支出记录系统!\n")
 while True:
@@ -56,12 +53,12 @@ while True:
     choice = input("请选择操作:")
     if choice == "1":
         try:    
-            category = ask_untill_valid(input_string, "分类")
-            amount = ask_untill_valid(input_num, "金额")
-            notes = ask_untill_valid(input_string, "备注")
+            category = ask_until_valid(input_string, "分类")
+            amount = ask_until_valid(input_num, "金额")
+            notes = ask_until_valid(input_string, "备注")
             records.append({"分类": category, "金额": amount, "备注": notes})
-        except UserCancelled:
-            print("已取消本次记账")
+        except UserCancelled as e:
+            print(e)
     elif choice == "2":
         if not records:
             print("\n没有支出记录\n")
