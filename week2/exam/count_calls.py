@@ -1,8 +1,7 @@
 import functools
 def count_calls(label):
-    count = 0
     def decorator(func):
-        # count = 0
+        count = 0
         @functools.wraps(func)
         def inner(*args, **kwargs):
             nonlocal count
