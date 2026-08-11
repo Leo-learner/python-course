@@ -1,3 +1,4 @@
+print("我的 __name__ 是：", __name__)
 def is_blank(input_str):
     return input_str.strip() == ""
 def blank_resolver(input_str):
