@@ -1,4 +1,3 @@
-print("被加载了， __name__ =", __name__)
 def is_blank(input_str):
     return input_str.strip() == ""
 def blank_resolver(input_str):
@@ -32,9 +31,9 @@ class ContactBook:
     def show_all(self):
         return self.contacts.copy()
 
-customer = ContactBook()
 #=================================================
 def main():
+    customer = ContactBook()
     while True:
         print("\n1. 添加联系人")
         print("2. 删除联系人")
