@@ -23,7 +23,10 @@ class ContactBook:
         self.contacts[name] = phone
             
     def delete(self, name):
-        del self.contacts[name]
+        try: 
+            del self.contacts[name]
+        except KeyError :
+            raise ContactNotFound(f"联系人{name}不存在")
     
     def find(self, name):
         try: 
