@@ -1,4 +1,6 @@
 print("我的 __name__ 是：", __name__)
+class ContactNotFound(Exception):
+    pass
 def is_blank(input_str):
     return input_str.strip() == ""
 def blank_resolver(input_str):
@@ -24,7 +26,10 @@ class ContactBook:
         del self.contacts[name]
     
     def find(self, name):
-        return self.contacts[name]
+        try: 
+            return self.contacts[name]
+        except KeyError :
+            raise ContactNotFound(f"联系人{name}不存在")
 
     def check(self, name):
         return name in self.contacts
@@ -66,11 +71,11 @@ def main():
                 print(f"联系人 {name} 不存在")
         elif choice == '3':
             name = blank_resolver(input("请输入要查找的联系人姓名: "))
-            if customer.check(name):
+            try:
                 phone = customer.find(name)
                 print(f"联系人信息: {name} - {phone}")
-            else:
-                print(f"联系人 {name} 不存在")
+            except ContactNotFound as e:
+                print(e)
         elif choice == '4':
             contacts = customer.show_all()
             show_all_contacts(contacts)
