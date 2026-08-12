@@ -1,4 +1,3 @@
-print("我的 __name__ 是：", __name__)
 class ContactNotFound(Exception):
     pass
 def is_blank(input_str):
